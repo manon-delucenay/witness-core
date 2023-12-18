@@ -23,7 +23,7 @@ from sostrades_core.tools.post_processing.charts.chart_filter import ChartFilter
 class UrbanBiodiversity(SoSWrapp):
     # ontology information
     _ontology_data = {
-        'label': 'UrbanBiodiversity',
+        'label': 'ForestBiodiversity',
         'type': 'Research',
         'source': 'PIE ISAE-Supaero',
         'validated': '',
@@ -31,7 +31,7 @@ class UrbanBiodiversity(SoSWrapp):
         'last_modification_date': '',
         'last_modification_date': '',
         'category': 'Biodiversity',
-        'definition': 'Biodiversity in urban environnement',
+        'definition': 'Biodiversity in forests',
         'icon': '??',
         'version': '',
     }
@@ -41,30 +41,39 @@ class UrbanBiodiversity(SoSWrapp):
                #unit
                #visibility = peut être utilisé ailleurs ou pas
                #namespace = pour être appelé ailleurs
-        'ParkAreas': {'type': 'float', 'unit': '-'},
-        'GreenDensity': {'type': 'float', 'unit': '-'},
-        'PublicPolicies': {'type': 'float', 'unit': '-'},
-        'InvasiveSpecies': {'type': 'float', 'unit': '-', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'inv_spe'}
+        'pluviometry': {'type': 'float', 'unit': '-'},
+        'dryness': {'type': 'float', 'unit': '-'},
+        'soil_humidity': {'type': 'float', 'unit': '-'},
+        'food_land_surface_df': {'type': 'float', 'unit': '-'},
+        'livestock': {'type': 'float', 'unit': '-'},
+        'urbanization':{'type': 'float', 'unit': '-'},
+        'soil_transformation':{'type': 'float', 'unit': '-'},
+        'hunting':{'type': 'float', 'unit': '-'},
+        'public_policies':{'type': 'float', 'unit': '-'},
+        'invasive_species': {'type': 'float', 'unit': '-', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'inv_spe'}
+        
     }
     DESC_OUT = {
-        'CBI': {'type': 'float', 'unit': '-'},
-        'Urbanization_rate':{'type': 'float','unit':'-'},
-        
-        #'BHI': {'type': 'float', 'unit': '-', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_ac'}
+        'BHI': {'type': 'float', 'unit': '-', 'visibility': SoSWrapp.SHARED_VISIBILITY, 'namespace': 'ns_ac'}
     }
     
     def init_execution(self):
         #faire ici ce qui doit se faire 1 seule fois pour tout le modèle - genre initialiser un autre système
-        MacroEco = MacroeconomicsModel()#quels inputs mettre dedans)
-        Population = ... #nom du modèle et ses inputs
+        print('hello world')
+   
 
     def run(self):
-        park = self.get_sosdisc_inputs('ParkAreas')
-        density = self.get_sosdisc_inputs('GreenDensity')
-        policies = self.get_sosdisc_inputs('PublicPolicies')
-        invasive = self.get_sosdisc_inputs('InvasiveSpecies')
+        pluviometry = self.get_sosdisc_inputs('pluviometry')
+        dryness = self.get_sosdisc_inputs('dryness')
+        soil_humidity= self.get_sosdisc_inputs('soil_humidity')
+        food_land_surface_df= self.get_sosdisc_inputs('food_land_surface_df')
+        livestock= self.get_sosdisc_inputs('livestock')
+        urbanization= self.get_sosdisc_inputs('urbanization')
+        hunting= self.get_sosdisc_inputs('hunting')
+        policies = self.get_sosdisc_inputs('public_policies')
+        invasive = self.get_sosdisc_inputs('invasive_species')
         coef = [...] #COMPLETER
-        dict_values = {'CBI': coef * [park,density,policies,invasive]}
+        dict_values = {'BHI': coef * [pluviometry,dryness,soil_humidity,food_land_surface_df,livestock,urbanization,hunting,policies,invasive]}
         # put new field value in data_out
         self.store_sos_outputs_values(dict_values)
 
